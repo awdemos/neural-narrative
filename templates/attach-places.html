@@ -1,0 +1,133 @@
+<!-- templates/attach-places.html -->
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}Attach Places{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/attach-places.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="places-container">
+    <h1 class="page-title"><i class="fas fa-map"></i> Places</h1>
+
+    {# Attach World Section #}
+    {{ macros.attach_section(
+    icon="fas fa-globe",
+    label="Attach World",
+    submit_action="Attach World",
+    fields=[
+    {
+    'id': 'world_template',
+    'name': 'world_template',
+    'label': 'Choose a world to attach:',
+    'options': available_worlds
+    }
+    ]
+    ) }}
+
+    {# Attach Region Section #}
+    {{ macros.attach_section(
+    icon="fas fa-border-style",
+    label="Attach Region",
+    submit_action="Attach Region",
+    fields=[
+    {
+    'id': 'world_identifier',
+    'name': 'world_identifier',
+    'label': 'Choose a world:',
+    'options': worlds_in_map
+    },
+    {
+    'id': 'region_template',
+    'name': 'region_template',
+    'label': 'Choose a region to attach:',
+    'options': available_regions
+    }
+    ]
+    ) }}
+
+    {# Attach Area Section #}
+    {{ macros.attach_section(
+    icon="fas fa-city",
+    label="Attach Area",
+    submit_action="Attach Area",
+    fields=[
+    {
+    'id': 'region_identifier',
+    'name': 'region_identifier',
+    'label': 'Choose a region:',
+    'options': regions_in_map
+    },
+    {
+    'id': 'area_template',
+    'name': 'area_template',
+    'label': 'Choose an area to attach:',
+    'options': available_areas
+    }
+    ]
+    ) }}
+
+    {# Attach Location Section #}
+    {{ macros.attach_section(
+    icon="fas fa-map-marker-alt",
+    label="Attach Location",
+    submit_action="Attach Location",
+    fields=[
+    {
+    'id': 'area_identifier',
+    'name': 'area_identifier',
+    'label': 'Choose an area:',
+    'options': areas_in_map
+    },
+    {
+    'id': 'location_template',
+    'name': 'location_template',
+    'label': 'Choose a location to attach:',
+    'options': available_locations
+    }
+    ]
+    ) }}
+
+    {# Attach Room Section #}
+    {{ macros.attach_section(
+    icon="fa-solid fa-person-shelter",
+    label="Attach Room",
+    submit_action="Attach Room",
+    fields=[
+    {
+    'id': 'location_identifier',
+    'name': 'location_identifier',
+    'label': 'Choose a location:',
+    'options': locations_in_map
+    },
+    {
+    'id': 'room_template',
+    'name': 'room_template',
+    'label': 'Choose a room to attach:',
+    'options': available_rooms
+    }
+    ]
+    ) }}
+
+    {# Navigation Buttons #}
+    {{ macros.navigation_buttons(buttons=[
+    {'url': url_for('location-hub'), 'icon': 'fas fa-map-marker-alt', 'label': 'Location Hub'},
+    {'url': url_for('index'), 'icon': 'fa-solid fa-dungeon', 'label': 'Home'},
+    {'url': url_for('places'), 'icon': 'fas fa-map', 'label': 'Places'},
+    {'url': url_for('story-hub'), 'icon': 'fas fa-feather-alt', 'label': 'Story Hub'},
+    {'url': url_for('characters-hub'), 'icon': 'fas fa-users', 'label': 'Characters Hub'},
+    {'url': url_for('chat'), 'icon': 'fas fa-comments', 'label': 'Chat'},
+    {'url': url_for('actions'), 'icon': 'fas fa-bolt', 'label': 'Actions'}
+    ]) }}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/attach-places.js') }}"></script>
+{% endblock %}

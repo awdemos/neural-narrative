@@ -1,0 +1,13 @@
+{places_descriptions}
+{known_facts}
+Your task is the following: influenced by the above combination of places, write three entries that are guidelines for creating interesting characters based on the above combination of places. Those guidelines for character creation should fit the following categories: {categories}. Each guideline should be about two or three sentences that feature the following:
+- Specify the character's species or race, including any unique traits or abilities relevant to the setting.
+- Specify the character's approximate age.
+- Highlight key aspects of their personality, such as being brave, cunning, compassionate, or conflicted.
+- Mention significant experiences or history that have shaped them.
+- Describe how their environment has impacted them. For example, they may hail from a war-torn region, a wealthy city, or a mystical forest.
+- Outline their main objectives or what drives them, such as seeking revenge, knowledge, or redemption.
+Your goal should be to create the most fascinating breadth of possible characters that would fit the above combination of places.
+Important:
+- Do not preface each guideline with "portray," "create," etc. Just write the guideline.
+- If you're going to use quotes in any of the guidelines, use single quotes.

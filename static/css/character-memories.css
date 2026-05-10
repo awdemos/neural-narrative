@@ -1,0 +1,53 @@
+/* static/css/character-memories.css */
+
+.success-message {
+    color: green;
+    margin: 10px 0;
+}
+
+/* Container styles */
+.character-memories-container {
+    margin-top: 20px;
+}
+
+#character_selector {
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* Self-Reflection Container Styles */
+.self-reflection-container,
+.worldview-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 800px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    color: #333;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.token-count {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 10px; /* Optional spacing */
+}

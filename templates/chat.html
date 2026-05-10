@@ -1,0 +1,310 @@
+<!-- templates/chat.html -->
+{% extends 'base.html' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link href="{{ url_for('static', filename='css/chat.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <h1 class="page-title"><i class="fas fa-comments"></i> Chat</h1>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="current-time">
+            Time: {{ current_time }}
+        </div>
+        <div class="current-place">
+            Place: {{ current_place_template }}
+        </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-window" id="chat-window">
+        {% for message in dialogue %}
+        {% if message.alignment == 'center' %}
+        {% if message.message_type == 'ambient' %}
+        <!-- Ambient Message -->
+        <div class="ambient-message" data-file-url="{{ message.file_url }}">
+            <div class="ambient-message-text">{{ message.message_text }}</div>
+            <i class="fas fa-play play-icon"></i>
+            <div class="waveform">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        {% elif message.message_type == 'narrative_beat' %}
+        <!-- Narrative Beat Message -->
+        <div class="narrative-beat-message" data-file-url="{{ message.file_url }}">
+            <div class="narrative-beat-message-text">{{ message.message_text }}</div>
+            <i class="fas fa-play play-icon"></i>
+            <div class="waveform">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        {% elif message.message_type == 'confrontation_round' %}
+        <!-- Event Message -->
+        <div class="confrontation-round-message" data-file-url="{{ message.file_url }}">
+            <div class="confrontation-round-message-text">{{ message.message_text }}</div>
+            <i class="fas fa-play play-icon"></i>
+            <div class="waveform">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        {% elif message.message_type == 'event' %}
+        <!-- Event Message -->
+        <div class="event-message" data-file-url="{{ message.file_url }}">
+            <div class="event-message-text">{{ message.message_text }}</div>
+            <i class="fas fa-play play-icon"></i>
+            <div class="waveform">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <!-- Chat Bubble -->
+        <div class="chat-bubble {{ message.alignment }}" data-file-url="{{ message.file_url }}">
+            <img alt="{{ message.sender_name }}" class="avatar" src="{{ message.sender_photo_url }}">
+            <div class="message-content">
+                <div class="sender-label">{{ message.sender_name }}</div>
+                <div class="message-text">{{ message.message_text }}</div>
+            </div>
+            <i class="fas fa-play play-icon"></i>
+            <div class="waveform">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Chat Section -->
+    <div class="collapsible-section">
+        <button class="collapsible active">
+            <i class="fas fa-comments"></i> Chat
+        </button>
+        <div class="content">
+
+            <!-- Send a Message -->
+            <fieldset>
+                <legend><i class="fas fa-paper-plane"></i> Send a Message</legend>
+                <form method="post" class="chat-form ajax-form" action="{{ url_for('chat') }}"
+                      data-success-handler="chatSuccessHandler" data-error-handler="chatErrorHandler">
+                    <div class="input-group">
+                        <input id="user-input" name="user_input" placeholder="Type your character's speech"
+                               type="text">
+                        <div class="form-buttons">
+                            <button type="submit" name="submit_action" value="Send" class="icon-button"
+                                    id="send-message-button"
+                                    title="Send Message">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button type="submit" name="submit_action" value="Stay Silent" class="icon-button"
+                                    id="stay-silent-button"
+                                    title="Stay Silent">
+                                <i class="fas fa-comment-slash"></i>
+                            </button>
+                            <button type="submit" name="submit_action" value="Goodbye" class="icon-button"
+                                    id="goodbye-button"
+                                    title="Goodbye">
+                                <i class="fas fa-door-open"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+
+            <!-- Narration Buttons -->
+            <fieldset>
+                <legend><i class="fas fa-feather-alt"></i> Narration</legend>
+                <div class="button-group">
+                    <form method="post" class="ambient-narration-form ajax-form" action="{{ url_for('chat') }}"
+                          data-success-handler="chatSuccessHandler" data-error-handler="chatErrorHandler">
+                        <button type="submit" name="submit_action" value="Ambient narration" class="action-button"
+                                id="ambient-narration-button" title="Ambient Narration">
+                            <i class="fa-solid fa-tree-city"></i> Ambient Narration
+                        </button>
+                    </form>
+                    <form method="post" class="narrative-beat-form ajax-form" action="{{ url_for('chat') }}"
+                          data-success-handler="chatSuccessHandler" data-error-handler="chatErrorHandler">
+                        <button type="submit" name="submit_action" value="Narrative beat" class="action-button"
+                                id="narrative-beat-button" title="Narrative Beat">
+                            <i class="fa-solid fa-person-walking-arrow-right"></i> Narrative Beat
+                        </button>
+                    </form>
+                </div>
+            </fieldset>
+
+            <!-- Event Section -->
+            <fieldset>
+                <legend><i class="fa-solid fa-calendar-alt"></i> Events</legend>
+                <form method="post" class="event-form ajax-form" action="{{ url_for('chat') }}"
+                      data-success-handler="chatSuccessHandler" data-error-handler="chatErrorHandler">
+                    <div class="input-group">
+                        <input id="event-input" name="event_input" placeholder="Describe an event" type="text">
+                        <div class="form-buttons">
+                            <button type="submit" name="submit_action" value="Event" class="icon-button"
+                                    id="event-button" title="Event">
+                                <i class="fa-solid fa-person-circle-exclamation"></i>
+                            </button>
+                            <button type="submit" name="submit_action" value="Grow event" class="icon-button"
+                                    id="grow-event-button" title="Grow Event">
+                                <i class="fa-solid fa-wheat-awn"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+
+            <!-- Brainstorm Events Section -->
+            <fieldset>
+                <legend><i class="fa-solid fa-lightbulb"></i> Brainstorm Events</legend>
+                <!-- Brainstorm Events Form -->
+                <form method="post" class="brainstorm-events-form ajax-form" action="{{ url_for('chat') }}"
+                      data-success-handler="brainstormEventsSuccessHandler" data-error-handler="chatErrorHandler">
+                    <div class="form-buttons" id="brainstorm-events-button-container">
+                        <button type="submit" name="submit_action" value="Brainstorm events" class="action-button">
+                            <i class="fa-solid fa-lightbulb"></i> Brainstorm Events
+                        </button>
+                    </div>
+                </form>
+                <!-- Container for displaying brainstormed events -->
+                <div id="brainstormed-events-container"><p>No events have been brainstormed.</p></div>
+            </fieldset>
+
+        </div>
+    </div>
+
+
+    <!-- Actions Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-bolt"></i> Actions
+        </button>
+        <div class="content">
+            <!-- Action Form -->
+            <form method="post" class="actions-form ajax-form" action="{{ url_for('chat') }}"
+                  data-success-handler="chatSuccessHandler" data-error-handler="chatErrorHandler">
+                <input id="action-input" name="action_input" placeholder="Describe the context for an action"
+                       type="text">
+                <div class="form-buttons">
+                    <button type="submit" name="submit_action" value="Confrontation round" class="icon-button"
+                            title="Confrontation Round">
+                        <i class="fa-solid fa-gun"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add this after the existing Actions Section -->
+    {% if available_characters %}
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-user-plus"></i> Add Participants
+        </button>
+        <div class="content">
+            <!-- Add Participants Form -->
+            <form method="post" class="add-participants-form ajax-form" action="{{ url_for('add_participants') }}"
+                  data-success-handler="addParticipantsSuccessHandler" data-error-handler="chatErrorHandler">
+                <div class="characters-list">
+                    {% for character in available_characters %}
+                    <div class="character">
+                        <input id="char-{{ character.identifier }}" name="selected_characters" type="checkbox"
+                               value="{{ character.identifier }}">
+                        <label for="char-{{ character.identifier }}">
+                            <img alt="{{ character.name }}" src="{{ url_for('static', filename=character.image_url) }}">
+                            <div class="character-name">{{ character.name }}</div>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Add Participants Button -->
+                <button type="submit" class="action-button">
+                    <i class="fas fa-user-plus"></i> Add to Chat
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if participant_characters %}
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-user-minus"></i> Remove Participants
+        </button>
+        <div class="content">
+            <!-- Remove Participants Form -->
+            <form method="post" class="remove-participants-form ajax-form" action="{{ url_for('remove_participants') }}"
+                  data-success-handler="removeParticipantsSuccessHandler" data-error-handler="chatErrorHandler">
+                <div class="characters-list">
+                    {% for character in participant_characters %}
+                    <div class="character">
+                        <input id="char-remove-{{ character.identifier }}" name="selected_characters" type="checkbox"
+                               value="{{ character.identifier }}">
+                        <label for="char-remove-{{ character.identifier }}">
+                            <img alt="{{ character.name }}" src="{{ url_for('static', filename=character.image_url) }}">
+                            <div class="character-name">{{ character.name }}</div>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Remove Participants Button -->
+                <button type="submit" class="action-button">
+                    <i class="fas fa-user-minus"></i> Remove from Chat
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+        <a href="{{ url_for('index') }}" class="button">
+            <i class="fa-solid fa-dungeon"></i> Home
+        </a>
+        <a href="{{ url_for('places') }}" class="button">
+            <i class="fas fa-map"></i> Places
+        </a>
+        <a href="{{ url_for('story-hub') }}" class="button">
+            <i class="fas fa-feather-alt"></i> Story Hub
+        </a>
+        <a href="{{ url_for('characters-hub') }}" class="button">
+            <i class="fas fa-users"></i> Characters Hub
+        </a>
+        <a href="{{ url_for('location-hub') }}" class="button">
+            <i class="fas fa-map-marker-alt"></i> Location Hub
+        </a>
+        <a href="{{ url_for('actions') }}" class="button">
+            <i class="fas fa-bolt"></i> Actions
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

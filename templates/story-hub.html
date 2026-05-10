@@ -1,0 +1,62 @@
+<!-- templates/story-hub.html -->
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+
+{% block styles %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/story-hub.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}
+Story Hub
+{% endblock %}
+
+{% block content %}
+<div class="story-hub-container">
+    <h1 class="page-title"><i class="fas fa-feather-alt" aria-hidden="true"></i> <span>Story Hub</span></h1>
+
+    {% for concept in concepts %}
+    {% set items = data.get(concept.type_plural, []) %}
+    {{ macros.collapsible_section(concept, items) }}
+    {% endfor %}
+
+    <!-- Writers' Room Button -->
+    <div class="action-buttons">
+        <a href="{{ url_for('facts') }}" class="action-button-unique">
+            <i class="fas fa-info-circle"></i> Facts
+        </a>
+        <a href="{{ url_for('writers-room') }}" class="action-button-unique">
+            <i class="fas fa-users-cog"></i> Writers' Room
+        </a>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+        <!-- Navigation Buttons -->
+        <a href="{{ url_for('index') }}" class="button">
+            <i class="fa-solid fa-dungeon"></i> Home
+        </a>
+        <a href="{{ url_for('places') }}" class="button">
+            <i class="fas fa-map"></i> Places
+        </a>
+        <a href="{{ url_for('characters-hub') }}" class="button">
+            <i class="fas fa-users"></i> Characters Hub
+        </a>
+        <a href="{{ url_for('location-hub') }}" class="button">
+            <i class="fas fa-map-marker-alt"></i> Location Hub
+        </a>
+        <a href="{{ url_for('chat') }}" class="button">
+            <i class="fas fa-comments"></i> Chat
+        </a>
+        <a href="{{ url_for('actions') }}" class="button">
+            <i class="fas fa-bolt"></i> Actions
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/story-hub.js') }}"></script>
+{% endblock %}

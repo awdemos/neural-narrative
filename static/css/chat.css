@@ -1,0 +1,522 @@
+/* static/css/chat.css */
+
+/* Need this to center the images for adding or removing participants */
+.content label {
+    text-align: center;
+}
+
+.chat-window {
+    border: 1px solid #ccc;
+    padding: 15px;
+    height: 800px; /* Increase the height here */
+    width: 95%;    /* Keep the current width */
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    margin: 0 auto; /* Center the chat window horizontally */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Scrollbar Styles */
+.chat-window::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.chat-window::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.chat-bubble {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.chat-bubble.left {
+    flex-direction: row;
+}
+
+.chat-bubble.right {
+    flex-direction: row-reverse;
+}
+
+/* Ensure higher specificity for the right-aligned chat bubbles */
+.chat-bubble.right .message-content {
+    background-color: #D1D1FF; /* Light Purple */
+    color: #000000; /* Black Text */
+}
+
+/* Participant messages */
+.chat-bubble.left .message-content {
+    background-color: #f8d7da; /* Light red */
+}
+
+/* Make chat bubbles and ambient messages clickable */
+.message-content {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message-content:hover {
+    background-color: #e0e0e0; /* Change to a light gray on hover */
+}
+
+.ambient-message-text {
+    display: inline-block;
+    background-color: #FFFFE0; /* Light Yellow */
+    color: #555555; /* Dark Gray Text */
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-style: italic;
+    color: #555;
+}
+
+/* Player Messages */
+.chat-bubble.right .message-content {
+    background: linear-gradient(to bottom right, #D0E8FF, #A0C8FF); /* Blue Gradient */
+    color: #000000; /* Black Text */
+}
+
+/* Other Characters */
+.chat-bubble.left .message-content {
+    background: linear-gradient(to bottom right, #DFFFD0, #B8FF98); /* Green Gradient */
+    color: #000000; /* Black Text */
+}
+
+/* Ambient Narration */
+.ambient-message-text {
+    background: linear-gradient(to bottom right, #F0F0F0, #D0D0D0); /* Gray Gradient */
+    color: #555555; /* Dark Gray Text */
+    font-style: italic;
+}
+
+
+
+/* Narration text inside right-aligned bubbles */
+.chat-bubble.right .narration {
+    color: #003366 !important;  /* Darker blue for narration */
+}
+
+.chat-bubble.right .sender-label {
+    left: auto;
+    right: 10px;
+    text-align: right;
+}
+
+/* Adjust the chat bubble to accommodate the label */
+.chat-bubble .message-content {
+    background-color: #f0f0f0; /* Keep the bubble background */
+    padding: 21px;
+    border-radius: 20px;
+    position: relative;
+    margin-top: 11px; /* Add space for the label */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+/* Adjust the container for the time and chat window */
+.chat-container {
+    margin-top: 20px;
+}
+
+.narration {
+    font-style: italic;
+    color: #003366;
+    font-size: 1em;  /* Standard size, avoid making it smaller */
+    font-weight: 500;  /* Medium weight for better readability */
+}
+
+.narration-break {
+    margin-top: 10px;  /* Adjust the space above the speech part */
+    margin-bottom: 10px;  /* Adjust the space below the narration */
+}
+
+.avatar {
+    width: 150px;  /* Further increase size */
+    height: 150px; /* Further increase size */
+    border-radius: 10%;
+    margin: 0 20px; /* Adjust margin for better spacing */
+}
+
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #f1f0f0;
+    max-width: 70%;
+    padding: 10px; /* padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px */
+    border-radius: 10px;
+    position: relative;
+    /* Remove margin-top if you have it */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+.message-content .sender-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+
+/* Base styles for sender-label */
+.sender-label {
+    position: absolute;
+    top: -15px; /* Adjusted to sit within the padding */
+    left: 9px;  /* Keep left positioning for left-aligned bubbles */
+    /* For right-aligned bubbles, adjust as needed */
+    font-weight: bold;
+    font-size: 1.1em;
+    background-color: #fff;
+    padding: 3px 8px;
+    display: inline-block;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px; /* Adjust the value as needed */
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message-text {
+    white-space: pre-wrap;
+    /* Ensure it can expand as needed */
+    word-wrap: break-word;
+}
+
+.message:nth-child(odd) {
+    text-align: left;
+}
+
+.message:nth-child(even) {
+    text-align: right;
+}
+
+
+.current-time + .chat-window {
+    margin-top: 15px;  /* Add some space between the time and chat window */
+    border-top: 1px solid #ddd;  /* Optional: add a border to separate time from chat */
+}
+
+
+/* Optional: Add a horizontal rule or separator between the place and chat */
+.current-place + .chat-window {
+    margin-top: 15px; /* Add some space between the place and chat window */
+    border-top: 1px solid #ddd; /* Optional: add a border to separate place from chat */
+}
+
+/* Info Bar */
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 80%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+
+.ambient-message {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* Event Message Styles */
+.event-message {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.event-message-text {
+    display: inline-block;
+    background: linear-gradient(to bottom right, #FFE0B2, #FFCC80); /* Light Orange Gradient */
+    color: #BF360C; /* Dark Orange Text */
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-style: normal;
+}
+
+/* Narrative Beat Message Styles */
+.narrative-beat-message {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.narrative-beat-message-text {
+    display: inline-block;
+    background: linear-gradient(to bottom right, #C8E6C9, #A5D6A7); /* Light Mint to Medium Mint */
+    color: #1B5E20; /* Dark Green Text */
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-style: normal;
+}
+
+/* Confrontation Round Message Styles */
+.confrontation-round-message {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.confrontation-round-message-text {
+    display: inline-block;
+    background: linear-gradient(to bottom right, #D32F2F, #B71C1C); /* Fiery Red Gradient */
+    color: #FFFFFF; /* White Text */
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-style: normal;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Add hover effects for interactivity */
+.confrontation-round-message-text:hover {
+    background: linear-gradient(to bottom right, #B71C1C, #D32F2F); /* Reverse Gradient on Hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Chat Form */
+.chat-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-form input[type="text"],
+.event-form input[type="text"],
+.actions-form input[type="text"] {
+    max-width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+}
+
+.chat-form input[type="text"]:focus,
+.event-form input[type="text"]:focus,
+.actions-form input[type="text"]:focus {
+    outline: none;
+    border-color: #45a049;
+    box-shadow: 0 0 5px rgba(69, 160, 73, 0.5);
+}
+
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* Icon-only Button */
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #22A7F0; /* Blue color for buttons */
+    color: #fff;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    margin: 0 5px; /* Spacing between buttons */
+}
+
+.icon-button i.fa-arrows-rotate {
+    /* Remove absolute positioning to leverage flexbox */
+    position: static; /* or simply remove the position property */
+    transform: none;
+    font-size: 20px; /* Adjust the size as needed */
+}
+
+.icon-button:hover {
+    background-color: #1A84C4; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.icon-button:active {
+    transform: translateY(2px);
+}
+
+.icon-button:focus {
+    outline: none;
+}
+
+/* Adjust fieldsets */
+.collapsible-section .content fieldset {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* Style legends */
+.collapsible-section .content fieldset legend {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* Increase spacing between input fields and buttons */
+.input-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.input-group input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Style button groups */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Style action buttons */
+.action-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Optional: Add horizontal line separators */
+.collapsible-section .content hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* Brainstormed Events Container */
+#brainstormed-events-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fffbe6; /* Light yellow background */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#brainstorm-events-button-container {
+    justify-content: center;
+}
+
+/* Header for the brainstormed events */
+#brainstormed-events-container h3 {
+    margin-top: 0;
+    color: #ff9800; /* Orange color for the header */
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Style for the brainstormed events list */
+.brainstormed-events-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.brainstormed-events-list li {
+    margin-bottom: 10px;
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+.thoughts {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background-color: #eef4fa; /* A gentle blue tint */
+    color: #333;
+    font-style: italic;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.thoughts i {
+    color: #3f51b5; /* Match your theme or use a brain-like color */
+}
+
+.desired-action {
+    margin-top: 5px;
+    padding: 8px 10px;
+    background-color: #fff3cd; /* A soft yellow tint */
+    color: #856404;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.desired-action i {
+    color: #ff9800; /* Orange to convey action/urgency */
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .chat-window {
+        height: 400px;
+    }
+
+    .chat-form input[type="text"] {
+        width: 100%;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .message-content {
+        max-width: 100%;
+    }
+}

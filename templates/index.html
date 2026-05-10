@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}
+Neural Narrative
+{% endblock %}
+
+{% block content %}
+<div class="index-container">
+    <h1 class="page-title"><i class="fas fa-feather-alt" aria-hidden="true"></i> Neural Narrative</h1>
+
+    <!-- Select Playthrough Section -->
+    {% if playthrough_names %}
+    <div class="collapsible-section">
+        <button class="collapsible active">
+            <i class="fas fa-gamepad"></i> Select Playthrough
+        </button>
+        <div class="content">
+            <form action="/" class="playthrough-form" method="post">
+                <label class="playthrough-label" for="playthrough_name">Select your playthrough:</label>
+                <select class="playthrough-select" id="playthrough_name" name="playthrough_name" required>
+                    {% for name in playthrough_names %}
+                    <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="action-button">
+                    <i class="fas fa-arrow-right"></i> Next
+                </button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p class="no-playthroughs">No playthroughs available.</p>
+    {% endif %}
+
+    <!-- Create Playthrough Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-plus-circle"></i> Create Playthrough
+        </button>
+        <div class="content">
+            <form action="/" method="post" class="ajax-form" data-success-handler="createPlaythroughSuccess">
+                <input type="hidden" name="submit_action" value="create_playthrough">
+
+                <label for="playthrough_name">Playthrough Name:</label>
+                <input type="text" id="playthrough_name_for_creation" name="playthrough_name" required>
+
+                <label for="story_universe_name">Select Story Universe:</label>
+                <select id="story_universe_name" name="story_universe_name" required
+                        onchange="updateDescription('story_universe')">
+                    {% for key, value in story_universes.items() %}
+                    <option value="{{ key }}" data-description="{{ value['description'] }}">{{ key }}</option>
+                    {% endfor %}
+                </select>
+                <div id="story_universe_description" class="description-box">
+                    <h3>Story Universe Description</h3>
+                    <p></p>
+                </div>
+                <label for="player_notion">Your Notions for the Player Character (optional):</label>
+                <textarea id="player_notion" name="player_notion" rows="4" cols="50"></textarea>
+
+                <button type="submit" class="action-button">
+                    <i class="fas fa-cogs"></i> Create Playthrough
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Generate Story Universe Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fa-solid fa-infinity"></i> Generate Story Universe
+        </button>
+        <div class="content">
+            <form action="/" method="post" class="ajax-form" data-success-handler="generateStoryUniverseSuccess">
+                <input type="hidden" name="submit_action" value="generate_story_universe">
+                <label for="story_universe_notion">Enter your notions about the story universe:</label>
+                <textarea id="story_universe_notion" name="story_universe_notion" rows="4" cols="50"
+                          required></textarea>
+                <button type="submit" class="action-button">
+                    <i class="fas fa-cogs"></i> Generate Story Universe
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LLMs Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-robot"></i> LLMs
+        </button>
+        <div class="content">
+            <form action="/" method="post" class="ajax-form" data-success-handler="updateLlmsSuccess">
+                <input type="hidden" name="submit_action" value="update_llms">
+                <div class="llms-cards-container">
+                    {% for action_type in action_types %}
+                    <div class="llm-card">
+                        <div class="llm-card-header {{ llms_repository.get_action_type_category(action_type) }}">
+                            <h3>{{ action_type.replace("_", " ") }}</h3>
+                        </div>
+                        <div class="llm-card-body">
+                            <select name="llms_mapping[{{ action_type }}]" class="llm-select">
+                                {% for llm_name in models.keys() %}
+                                <option value="{{ llm_name }}" {% if
+                                        llms_repository.has_llm_assigned(action_type,llm_name) %}selected{% endif %}>
+                                    {{ llm_name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="action-button">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+        <a href="{{ url_for('places') }}" class="button">
+            <i class="fas fa-map"></i> Places
+        </a>
+        {% if session.get("playthrough_name") %}
+        <a href="{{ url_for('story-hub') }}" class="button">
+            <i class="fas fa-feather-alt"></i> Story Hub
+        </a>
+        <a href="{{ url_for('characters-hub') }}" class="button">
+            <i class="fas fa-users"></i> Characters Hub
+        </a>
+        <a href="{{ url_for('location-hub') }}" class="button">
+            <i class="fas fa-map-marker-alt"></i> Location Hub
+        </a>
+        <a href="{{ url_for('chat') }}" class="button">
+            <i class="fas fa-comments"></i> Chat
+        </a>
+        <a href="{{ url_for('actions') }}" class="button">
+            <i class="fas fa-bolt"></i> Actions
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

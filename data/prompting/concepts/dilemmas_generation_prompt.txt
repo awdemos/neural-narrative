@@ -1,0 +1,10 @@
+Using the following detailed descriptions of places, characters, and their memories, generate three intriguing moral and ethical dilemmas that could stem from this information.
+These dilemmas should present the player with difficult choices between equally compelling options, highlighting moral ambiguity and challenging their values and ethics.
+They should force the player to make tough decisions that affect their moral alignment and have far-reaching, significant consequences.
+Consider the characters' motivations, relationships, and any hints or clues in the provided information to create these dilemmas.
+Each dilemma should be described in two or three sentences. Do not precede each dilemma with a number (it shouldn't be a numbered list).
+Provided Elements:
+{places_descriptions}
+{player_and_followers_information}
+{known_facts}
+Important: you are prohibited from repeating verbatim any of the player and followers information, as well as the memories. Do not write any preamble, just do as ordered.

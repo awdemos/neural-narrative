@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Character Generation{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/character-generation.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+<div class="character-generation-container">
+    <h1 class="page-title"><i class="fas fa-user-plus"></i> Character Generation</h1>
+
+    {% if character_generation_message %}
+    <div class="message">
+        <p>{{ character_generation_message }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Select Guideline Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-list"></i> Select a Guideline
+        </button>
+        <div class="content">
+            <div class="guidelines-grid">
+                {% for guideline in guidelines %}
+                <div class="post-it card" onclick='fillGuideline({{ guideline|tojson }});'>
+                    <i class="fas fa-thumbtack"></i> <!-- Pin Icon -->
+                    <p>{{ guideline }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Guidelines Section -->
+    <div class="collapsible-section">
+        <button class="collapsible">
+            <i class="fas fa-lightbulb"></i> Generate Guidelines
+        </button>
+        <div class="content">
+            <form method="post" class="guideline-form ajax-form" id="generate-guidelines-form"
+                  action="{{ url_for('character-generation') }}"
+                  data-success-handler="characterGuidelinesGenerationSuccess">
+                <input name="submit_action" type="hidden" value="Generate Guidelines">
+                <button type="submit" class="action-button" id="generate-guidelines-button">
+                    <i class="fas fa-magic"></i> Generate Guidelines
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Guideline Textbox Section -->
+    <div class="collapsible-section">
+        <button class="collapsible active">
+            <i class="fas fa-edit"></i> Guideline
+        </button>
+        <div class="content">
+            <form method="post" class="guideline-form ajax-form" id="generate-character-form"
+                  action="{{ url_for('character-generation') }}">
+                <label for="guideline_text">Guideline:</label>
+                <textarea id="guideline_text" name="guideline_text" rows="10">{{ selected_guideline }}</textarea>
+                <input name="submit_action" type="hidden" value="Generate Character">
+                <button type="submit" class="action-button" id="generate-character-button">
+                    <i class="fas fa-magic"></i> Generate Character
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+        <a href="{{ url_for('characters-hub') }}" class="button">
+            <i class="fas fa-users"></i> Characters Hub
+        </a>
+        <a href="{{ url_for('index') }}" class="button">
+            <i class="fa-solid fa-dungeon"></i> Home
+        </a>
+        <a href="{{ url_for('places') }}" class="button">
+            <i class="fas fa-map"></i> Places
+        </a>
+        <a href="{{ url_for('story-hub') }}" class="button">
+            <i class="fas fa-feather-alt"></i> Story Hub
+        </a>
+        <a href="{{ url_for('location-hub') }}" class="button">
+            <i class="fas fa-map-marker-alt"></i> Location Hub
+        </a>
+        <a href="{{ url_for('participants') }}" class="button">
+            <i class="fas fa-comments"></i> Chat
+        </a>
+        <a href="{{ url_for('actions') }}" class="button">
+            <i class="fas fa-bolt"></i> Actions
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/character-generation.js') }}"></script>
+{% endblock %}

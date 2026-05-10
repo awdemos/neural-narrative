@@ -1,0 +1,38 @@
+Character Information
+Name: {name}
+Description: {description}
+Personality: {personality}
+Profile: {profile}
+Likes: {likes}
+Dislikes: {dislikes}
+Secrets: {secrets}
+Health: {health}
+Equipment: {equipment}
+Voice Gender: {voice_gender}
+Voice Age: {voice_age}
+Voice Emotion: {voice_emotion}
+Voice Tempo: {voice_tempo}
+Voice Volume: {voice_volume}
+Voice Texture: {voice_texture}
+Voice Tone: {voice_tone}
+Voice Style: {voice_style}
+Voice Personality: {voice_personality}
+Voice Special Effects: {voice_special_effects}
+-----
+Based on the provided character attributes, generate 10 unique and compelling quotes to define {name}'s distinct narrative voice. The quotes should:
+Embody Unique Expressions: Use character-specific idioms, language quirks, phrases, or catchphrases that mirror their background, culture, and experiences. Subtly hint at their secrets and showcase their emotions and motivations through their words.
+Utilize Coping Mechanisms: Let the character's coping mechanisms influence their speech, revealing how they deal with stress, joy, or challenges.
+Integrate Likes and Dislikes: Reference the character's likes and dislikes naturally within their speech.
+Reflect Health and Equipment: If relevant, allow the character's health status or equipment to influence their expressions (e.g., mentioning a trusty sword or a lingering cough).
+Align with Voice Attributes: Ensure the speech patterns match the voice attributes like age, gender, texture, and style.
+Avoid Generic Expressions: Steer clear of clichés and overused phrases; focus on creating authentic and unique expressions true to the character.
+Speech Style:
+- The character's communication style should be engaging and natural, encouraging dynamic conversations.
+- Incorporate contractions, slang, and colloquial expressions.
+- Avoid formal or archaic language.
+Sample Utterances:
+- Provide 10 examples of things the character might say, reflecting their personality, coping mechanisms, and the above elements.
+Dialogue Formatting:
+- Do not include quotation marks around the character's speech.
+- Keep the tone informal and authentic.
+- Do not preface your response: just output the JSON code.

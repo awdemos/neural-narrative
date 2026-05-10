@@ -1,0 +1,64 @@
+<!-- templates/travel.html -->
+{% extends 'base.html' %}
+
+{% block title %}Travel{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/travel.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="travel-container">
+    <h1 class="page-title"><i class="fas fa-route"></i> Travel</h1>
+    <p class="current-time">Current Time: {{ current_time }}</p>
+    <p class="current-place">Origin: {{ origin_area_name }}</p>
+    <p class="destination-place">Destination: {{ destination_area_name }}</p>
+
+    <!-- Travel Form -->
+    <form action="{{ url_for('travel') }}" method="post" class="ajax-form" data-success-handler="travelSuccess"
+          id="travel-form">
+        <input type="hidden" name="submit_action" value="travel">
+        <!-- Textarea for travel context -->
+        <textarea name="travel_context" placeholder="Enter travel context (optional)" class="travel-context"></textarea>
+        <button type="submit" class="action-button">
+            <i class="fas fa-walking"></i> Travel
+        </button>
+    </form>
+
+    <!-- Container to display travel narration -->
+    <div id="travel-narration-container"></div>
+</div>
+<!-- Navigation Buttons -->
+<div class="buttons">
+    <a href="{{ url_for('index') }}" class="button">
+        <i class="fa-solid fa-dungeon"></i> Home
+    </a>
+    <a href="{{ url_for('places') }}" class="button">
+        <i class="fas fa-map"></i> Places
+    </a>
+    <a href="{{ url_for('story-hub') }}" class="button">
+        <i class="fas fa-feather-alt"></i> Story Hub
+    </a>
+    <a href="{{ url_for('characters-hub') }}" class="button">
+        <i class="fas fa-users"></i> Characters Hub
+    </a>
+    <a href="{{ url_for('location-hub') }}" class="button">
+        <i class="fas fa-map-marker-alt"></i> Location Hub
+    </a>
+    <a href="{{ url_for('chat') }}" class="button">
+        <i class="fas fa-comments"></i> Chat
+    </a>
+    <a href="{{ url_for('actions') }}" class="button">
+        <i class="fas fa-bolt"></i> Actions
+    </a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/actions.js') }}"></script>
+<script src="{{ url_for('static', filename='js/travel.js') }}"></script>
+{% endblock %}

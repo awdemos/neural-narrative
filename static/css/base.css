@@ -1,0 +1,262 @@
+/* static/css/base.css */
+
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 50px;
+    background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+h1 {
+    text-align: center;
+}
+form {
+    margin-top: 10px;
+    text-align: center;
+}
+input[type="submit"] {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Page Title */
+h1.page-title {
+   font-family: 'Pacifico', cursive;
+    font-size: 60px;
+    background: linear-gradient(to right, #ff5722, #3f51b5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.flashes {
+    display:none;
+}
+
+.current-time,
+.current-place {
+    font-size: 16px;
+    color: #444;
+}
+.current-place {
+    text-align: right;
+}
+
+/* Container for Toasts */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Base Toast Style */
+.toast {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    min-width: 250px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+    opacity: 0;
+    animation: fadeInToast 0.5s forwards;
+    font-size: 16px;
+}
+
+/* Success Toast */
+.toast.success {
+    background: linear-gradient(45deg, #28a745, #218838);
+}
+
+/* Error Toast */
+.toast.error {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+/* Icon Styling */
+.toast::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.toast.success::before {
+    content: "\f00c"; /* Font Awesome check icon */
+}
+
+.toast.error::before {
+    content: "\f00d"; /* Font Awesome times icon */
+}
+
+/* Animation */
+@keyframes fadeInToast {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Fade-Out Animation */
+@keyframes fadeOutToast {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+/* Fade-Out Class */
+.fade-out {
+    animation: fadeOutToast 0.5s forwards;
+}
+
+/* Hide the section */
+.hidden-section {
+    display: none;
+}
+
+/* Show the section */
+.visible-section {
+    display: block;
+}
+
+/* Optionally, style disabled select and button */
+select:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+button:disabled {
+    background-color: #A9A9A9;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background-color: #D2122E;
+}
+
+/* Playing State */
+.playing {
+    background: linear-gradient(90deg, #e0f7fa, #ffffff);
+    transition: background 0.5s, border-left 0.5s;
+}
+
+/* Play/Pause Icon */
+.play-icon {
+    font-size: 14px;
+    color: #fff;
+    background-color: #22A7F0;
+    border-radius: 50%;
+    padding: 8px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.play-icon:hover {
+    opacity: 0.8;
+}
+
+.playing .play-icon {
+    background-color: #dc3545;
+}
+
+.playing .play-icon::before {
+    content: "\f28b";  /* FontAwesome pause icon */
+}
+
+/* Waveform Animation */
+
+/* Hide waveform by default */
+.waveform {
+    display: none;
+}
+
+.playing .waveform {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -10px;
+    bottom: -10px;
+}
+
+.waveform div {
+    width: 4px;
+    height: 12px;
+    margin: 0 1px;
+    background: #22A7F0;
+    animation: bounce 1s infinite ease-in-out;
+}
+
+.waveform div:nth-child(1) { height: 10px; animation-delay: -1s; }
+.waveform div:nth-child(2) { height: 14px; animation-delay: -0.8s; }
+.waveform div:nth-child(3) { height: 18px; animation-delay: -0.6s; }
+.waveform div:nth-child(4) { height: 14px; animation-delay: -0.4s; }
+.waveform div:nth-child(5) { height: 10px; animation-delay: -0.2s; }
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scaleY(0.5);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+/* Action Resolution */
+
+.action-container {
+    margin-top: 20px;
+}
+
+.action-result {
+    margin-top: 20px;
+}
+
+.action-result div .narration,
+.action-result div .outcome {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 800px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.action-result div:hover {
+    background-color: #f0f0f0;
+}
+
+.action-result h3 {
+    margin-top: 0;
+}
+
+
+
+@media (max-width: 600px) {
+    .container {
+        max-width: 100%;
+        margin: 10px;
+    }
+    input[type="submit"] {
+        width: 100%;
+    }
+}
